@@ -10,7 +10,7 @@ int lastButtonState = LOW;              //initializing state of the lastButtonSt
 int reading = LOW;                      //initializing state of reading
 long lastDebounceTime = 0;              //last time the pushbutton was toggled - Used to ignore extra, inadvertent, button pushes
 long debounceDelay = 50;                //debounce time threshold for pushbutton - Used to ignore extra, inadvertent, button pushes
-const int chipSelect = 10;              //From SPI library; initializing state of chipSelect for use as a pin number; used to check if SD card present 
+const int chipSelect = 10;              //From SPI library; initializing state of chipSelect for use as a pin number; used to check if SD card present
 long cm = 0;                            //initializing state of cm
 int incomingByte = 0;                   //initializing state of incomingByte - this is the initiation of the program by pressing 1
 int state = 0;                          //initializing state of state; this is determined by counter and sensor?
@@ -39,7 +39,7 @@ void setup() {
  pinMode(2, OUTPUT); // Set pin 2 as trigger pin
  digitalWrite(2, LOW); // Set trigger LOW for continuous read
  pinMode(3, INPUT); // Set pin 3 as monitor pin
- 
+
 //-------------------
 
     state = 0;
@@ -54,9 +54,9 @@ void setup() {
       digitalWrite(counterLed, HIGH);
       return;
     }
-    
+
     Serial.println("Card initialized.");
-    
+
     Serial.println();
     Serial.println("Ready...");
     Serial.println("Hold button for 1 second or type 0 and hit enter to begin counter.");
@@ -89,17 +89,17 @@ void loop() {
     case 0:
 
       incomingByte = Serial.read();
-      
+
       if (incomingByte == '0' || programLedState == HIGH)
       {
         timeSeconds = (millis() / 1000);
         programLedState = HIGH;
         digitalWrite(counterLed, LOW);
-        
+
         state = 1;
         Serial.println("starting counter");
         sensorData = SD.open("ctrData.txt", FILE_WRITE);  //opens txt file to write data
-        
+
         if(sensorData)  {     //once file opens successfully run this
           Serial.print("Starting counter on ");
           Serial.println(timeSeconds);
@@ -110,7 +110,7 @@ void loop() {
           sensorData.close();
         }
       }
-        
+
       break;
     case 1:
 
@@ -118,7 +118,7 @@ void loop() {
                                       Serial.print("case 1 sensor reading: ");
                                       Serial.println(sensor);
                                       Serial.println();
-      
+
       if (HIGH_TRIGGER <= sensor)
       {
         state = 2; //reading
@@ -141,7 +141,7 @@ void loop() {
         state = 3;
                                       Serial.println("high trigger > sensor TRUE");
                                       Serial.println("state 3");
-                                      Serial.println(); 
+                                      Serial.println();
       }
 
       break;
@@ -199,14 +199,14 @@ void loop() {
 int getSensorData() {
     /*
      i=analogRead(sensorPin);
-     
-    
+
+
     //valFront     = (6762.00/(i-9))-4;
     cm     = 28250/(i-229.5);     //Then, we have a linear equation of digital value and distance.
-                                          //(512-sensorValue)/(1/100-1/distance)=(512-286)/(0.01-0.002) 
+                                          //(512-sensorValue)/(1/100-1/distance)=(512-286)/(0.01-0.002)
                                           //=> distance=28250/(sensorValue-229.5);
-    
-    
+
+
     Serial.print("sensor Front: ");
     Serial.println(cm);           //print val1 with 1 decimal point accuracy
 */
@@ -220,4 +220,3 @@ cm = pulseIn(3, HIGH); // Count how long the pulse is high in microseconds
 
 }
 }
-
