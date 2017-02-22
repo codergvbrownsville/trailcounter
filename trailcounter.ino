@@ -25,7 +25,7 @@ File sensorData;                        //variable for working with file object
 void setup() {
     //pinMode(sensorPin, OUTPUT);
     pinMode(10,OUTPUT);               //reserved for library use, not used in our program
-    pinMode(counterLed, OUTPUT);
+    pinMode(counterLed, OUTPUT);      //this is the output of pinMode
 
     pinMode(pushButton, INPUT);
     pinMode(programLed, OUTPUT);
