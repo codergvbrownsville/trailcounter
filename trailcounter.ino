@@ -193,8 +193,6 @@ void loop() {
   }
 }
 
-
-
 //program functions
 int getSensorData() {
     /*
